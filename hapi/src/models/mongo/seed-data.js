@@ -1,0 +1,82 @@
+export const seedData = {
+  users: {
+    _model: "User",
+    homer: {
+      firstName: "Homer",
+      lastName: "Simpson",
+      email: "homer@simpson.com",
+      password: "$2a$10$HnapEWWKQQ0.0Ft33nXxtuJ0fsmd9ywYswEzT4C.6Ul5y6cOU.UEa",
+      userType: "normal",
+    },
+    marge: {
+      firstName: "Marge",
+      lastName: "Simpson",
+      email: "marge@simpson.com",
+      password: "$2a$10$D3TWK8MSAh63Lhk4gIFSJ.ekM368J88qJRUYSbuBfzffex6B0dFwK",
+      userType: "admin",
+    },
+    bart: {
+      firstName: "Bart",
+      lastName: "Simpson",
+      email: "bart@simpson.com",
+      password: "$2a$10$uqnPlgyVjBEOtcgMhn/WRO3FwW4T9gX36tTB4RqpGeB/LkCR3YQuO",
+      userType: "normal",
+    },
+  },
+  categories: {
+    _model: "Category",
+    fields: {
+      title: "Local Field Names",
+      img: "http://res.cloudinary.com/dwv4wuj9l/image/upload/v1678877496/j8fuirekhojwosgmpjr0.png",
+      userid: "->users.homer",
+    },
+    bridges: {
+      title: "Bridges",
+      img: "http://res.cloudinary.com/dwv4wuj9l/image/upload/v1678877496/j8fuirekhojwosgmpjr0.png",
+      userid: "->users.homer",
+    },
+  },
+  pois: {
+    _model: "POI",
+    field01: {
+      name: "Field 01",
+      description: "Long Meadow",
+      latitude: 52.369626,
+      longitude:  -6.691952,
+      image: "http://res.cloudinary.com/dwv4wuj9l/image/upload/v1678877496/j8fuirekhojwosgmpjr0.png",
+      categoryID: "->categories.fields",
+    },
+    field02: {
+      name: "Field 02",
+      description: "Kiln Field",
+      latitude: 52.371033,
+      longitude:  -6.692752,
+      image: "http://res.cloudinary.com/dwv4wuj9l/image/upload/v1678877496/j8fuirekhojwosgmpjr0.png",
+      categoryID: "->categories.fields",
+    },
+    field03: {
+      name: "Field 03",
+      description: "Dalton's field",
+      latitude: 52.372967,
+      longitude:  -6.693630,
+      image: "http://res.cloudinary.com/dwv4wuj9l/image/upload/v1678877496/j8fuirekhojwosgmpjr0.png",
+      categoryID: "->categories.fields",
+    },
+    bridge01: {
+      name: "Bridge 01",
+      description: "Carrowreigh Lane Bridge",
+      latitude: 52.354875,
+      longitude:  -6.691832,
+      image: "http://res.cloudinary.com/dwv4wuj9l/image/upload/v1678877496/j8fuirekhojwosgmpjr0.png",
+      categoryID: "->categories.bridges",
+    },
+    bridge02: {
+      name: "Bridge 02",
+      description: "Roche's Bridge",
+      latitude: 52.365415,
+      longitude:  -6.815584,
+      image: "http://res.cloudinary.com/dwv4wuj9l/image/upload/v1678877496/j8fuirekhojwosgmpjr0.png",
+      categoryID: "->categories.bridges",
+    },
+  },
+};
