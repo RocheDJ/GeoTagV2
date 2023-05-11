@@ -1,6 +1,6 @@
 import {assert} from "chai";
 import {db} from "../../src/models/db.js";
-import {maggie, testPOI, Kiln, testKiln} from "../fixtures.js";
+import {maggie, testPOI, Kiln, testKiln, maggieCredentials} from "../fixtures.js";
 import {assertSubset} from "../test-utils.js";
 import {geoTagService} from "./geotag-service.js";
 
@@ -12,14 +12,14 @@ suite("POI API tests", () => {
         await geoTagService.clearAuth(); // no await just call and
         // create and authenticate a user for initial configuration
         user = await geoTagService.createUser(maggie);
-        await geoTagService.authenticate(maggie); // create a jwt for test user
+        await geoTagService.authenticate(maggieCredentials); // create a jwt for test user
         // delete all information so we start with a clean slate
         await geoTagService.deleteAllCategories();
         await geoTagService.deleteAllPOI();
         await geoTagService.deleteAllUsers();
         // add a user for testing
         user = await geoTagService.createUser(maggie);
-        await geoTagService.authenticate(maggie); // create a jwt for test user
+        await geoTagService.authenticate(maggieCredentials); // create a jwt for test user
         // Give the category a user ID for the test user
         Kiln.userID = user._id;
         // Add the dummy kiln Category
@@ -29,10 +29,27 @@ suite("POI API tests", () => {
     });
 
     test("Create a POI", async () => {
-        const returnedPOI = await geoTagService.createPOI(kilnCategory._id, testKiln);
-        assertSubset(testKiln, returnedPOI); // is the testKiln a Subset of what we just created 
-        assert.isDefined(returnedPOI._id); // does that subset have an ID
+        testKiln.categoryID = kilnCategory._id;
+        try{
+            const returnedPOI = await geoTagService.createPOI(kilnCategory._id, testKiln);
+            assertSubset(testKiln, returnedPOI); // is the testKiln a Subset of what we just created
+            assert.isDefined(returnedPOI._id); // does that subset have an ID
+        }catch(error){
+            console.log(error.message)
+            assert.equal(1,2);
+        }
+    });
 
+    test("Test Weather API ", async () => {
+        testKiln.categoryID = kilnCategory._id;
+        const returnedPOI = await geoTagService.createPOI(kilnCategory._id, testKiln);
+        try{
+            const returnedWeather = await geoTagService.getPOIWeather(returnedPOI._id);
+            assert.isDefined(returnedWeather.temperature); //
+        }catch(error){
+            console.log(error.message)
+            assert.equal(1,2);
+        }
     });
 
     test("Create Multiple POIs", async () => {

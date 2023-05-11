@@ -36,7 +36,7 @@ export const PoiSpec = Joi.object()
         description: Joi.string().example("Description of Somewhere beach").optional(),
         latitude: Joi.number().required(),
         longitude: Joi.number().required(),
-        imageFileName: Joi.any().optional(),
+        image: Joi.any().optional(),
         categoryID: IdSpec,
     })
     .label("POI");
@@ -88,3 +88,17 @@ export const JwtAuth = Joi.object()
         _id : IdSpec,
     })
     .label("JwtAuth");
+
+// ################################## Climate Spec ##############################################
+
+export const climateReadingSpec = Joi.object()
+    .keys({
+        code: Joi.number().required(),
+        temperature: Joi.number().required(),
+        pressure: Joi.number().required(),
+        windSpeed: Joi.number().required(),
+        windDirection: Joi.any().optional(),
+    })
+    .label("climateReading");
+
+

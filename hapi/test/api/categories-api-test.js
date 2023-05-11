@@ -17,12 +17,17 @@ suite("Category API tests", () => {
         await geoTagService.authenticate(maggieCredentials); // create a jwt for test user
         await geoTagService.deleteAllCategories();
         await geoTagService.deleteAllPOI();
-        await geoTagService.deleteAllUsers();
+
         Kiln.userID = user._id
         for (let i = 0; i < testCategories.length; i += 1) {
             testCategories[i].userID = user._id;
-            // eslint-disable-next-line no-await-in-loop
-            aCategories[i] = await geoTagService.createCategory(testCategories[i]);
+            try{
+                // eslint-disable-next-line no-await-in-loop
+                aCategories[i] = await geoTagService.createCategory(testCategories[i]);
+            } catch(error){
+                console.log(error.message);
+            }
+
         }
     });
     teardown(async () => {

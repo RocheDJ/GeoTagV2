@@ -36,6 +36,7 @@
 		<th>Name</th>
 		<th>Description</th>
 		<th>Image</th>
+		<th>Weather</th>
 		<th>Edit</th>
 		<th>Delete</th>
 	</thead>
@@ -50,6 +51,9 @@
 				</td>
 				<td>
 					<img src={poi.image} width="50" alt="img" />
+				</td>
+				<td>
+					<a href="/dashboard/poi/weather/?_id={poi._id}"><i class="fa fa-cloud"></i><i class="fa fa-sun-o" aria-hidden="true"></i> </a>	
 				</td>
 				<td>
 					<i class="fas fa-gear" />

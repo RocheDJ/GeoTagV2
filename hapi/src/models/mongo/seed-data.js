@@ -28,12 +28,12 @@ export const seedData = {
     fields: {
       title: "Local Field Names",
       img: "http://res.cloudinary.com/dwv4wuj9l/image/upload/v1678877496/j8fuirekhojwosgmpjr0.png",
-      userid: "->users.homer",
+      userID: "->users.homer",
     },
     bridges: {
       title: "Bridges",
       img: "http://res.cloudinary.com/dwv4wuj9l/image/upload/v1678877496/j8fuirekhojwosgmpjr0.png",
-      userid: "->users.homer",
+      userID: "->users.homer",
     },
   },
   pois: {

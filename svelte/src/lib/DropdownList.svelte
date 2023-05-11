@@ -8,7 +8,7 @@
 				<i class="fas fa-home" style="color:rgb(0, 255, 0)" />
 				<div class="is-size-5">&nbsp; Overview</div>
 			</a>
-			<a href="/categories" class="navbar-item">
+			<a href="/category" class="navbar-item">
 				<i class="fas fa-heart" style="color:rgb(214, 122, 127)" />
 				<div class="is-size-5">&nbsp; Categories</div>
 			</a>

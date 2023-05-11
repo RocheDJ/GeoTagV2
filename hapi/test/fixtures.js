@@ -47,9 +47,9 @@ export const Kiln = {
 export const testKiln = {
     "name": "Limestone Kiln",
     "description": "A location for the burning of lime stone prior to spreading on farmland",
-    "latitude" : -90,
-    "longitude" : -90,
-    "img":"location.png"
+    "latitude" : 52.369626,
+    "longitude" : -6.691952,
+    "image":"location.png"
 };
 
 export const testCategories = [
@@ -71,19 +71,22 @@ export const testPOI = [
   {
     "name": "POI 1",
     "description": "--",
-    "latitude" : -90,
-    "longitude" : -90,
+    "latitude" : 52.369626,
+    "longitude" :  -6.691952,
+    "image" : "http://res.cloudinary.com/dwv4wuj9l/image/upload/v1678877496/j8fuirekhojwosgmpjr0.png",
   },
   {
     "name": "POI 2",
     "description": "--",
-    "latitude" : -90,
-    "longitude" : -90,
+    "latitude" :  -6.815584,
+    "longitude" :  -6.815584,
+    "image" : "http://res.cloudinary.com/dwv4wuj9l/image/upload/v1678877496/j8fuirekhojwosgmpjr0.png",
   },
   {
     "name": "POI 3",
     "description":"--",
-    "latitude" : -90,
-    "longitude" : -90,
+    "latitude" :  52.365415,
+    "longitude" :  -6.815584,
+    "image" : "http://res.cloudinary.com/dwv4wuj9l/image/upload/v1678877496/j8fuirekhojwosgmpjr0.png",
   }
 ];

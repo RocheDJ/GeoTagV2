@@ -25,3 +25,5 @@
 ## BaseLine Version 2.0.23131
 
 - Retained storage Implemented using Mongo DB
+- Added Get Weather API Interface 
+- Corrected API errors for Category validation 

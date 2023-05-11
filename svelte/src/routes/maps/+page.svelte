@@ -12,7 +12,7 @@
 	</div>
 	
 	<div class="column box is-two-thirds">
-		<h1 class="title is-4">My Poi Maps</h1>
+		<h1 class="title is-4">Category Map </h1>
 		<CategoryMap />
 	</div>
 </div>

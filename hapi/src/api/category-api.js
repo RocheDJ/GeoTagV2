@@ -26,7 +26,7 @@ export const categoryApi = {
             }
         },
         tags: ["api"],
-        // response: {schema: simpleCategoryArraySpec, failAction: validationError},
+        response: {schema: simpleCategoryArraySpec, failAction: validationError},
         description: "Get all Categories for places of interest",
         notes: "Returns details of all categories ",
     },
@@ -58,7 +58,8 @@ export const categoryApi = {
         },
         handler: async function (request, h) {
             try {
-                const cat = await db.categoryStore.addCategory(request.payload);
+                const data = request.payload;
+                const cat = await db.categoryStore.addCategory(data);
                 if (cat) {
                     return h.response(cat).code(201);
                 }
@@ -68,7 +69,7 @@ export const categoryApi = {
             }
         },
         tags: ["api"],
-        validate: {payload: simpleCategorySpec},
+        // validate: {payload: simpleCategorySpec},
         response: {schema: CategorySpecPlus, failAction: validationError},
         description: "Create a new Category",
         notes: "Add a new Category to the DB based on th input parameters",

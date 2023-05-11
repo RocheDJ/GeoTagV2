@@ -2,14 +2,15 @@ import Vision from "@hapi/vision";
 import Hapi from "@hapi/hapi";
 import Cookie from "@hapi/cookie";
 import dotenv from "dotenv";
-import path from "path";
 import Joi from "joi";
 import Inert from "@hapi/inert";
 import HapiSwagger from "hapi-swagger";
 import jwt from "hapi-auth-jwt2";
+// import axios from "axios";
 
 import { fileURLToPath } from "url";
 import Handlebars from "handlebars";
+import * as path from "path";
 import { webRoutes } from "./web-routes.js";
 import { db } from "./models/db.js";
 import { accountsController } from "./controllers/accounts-controller.js";
@@ -52,15 +53,16 @@ Handlebars.registerHelper("ifeq", function (a, b, options) {
 async function init() {
   const server = Hapi.server({
     port: process.env.PORT || 3000,
-    routes:{ cors:true },
+    host: "localhost",
+    routes:{
+      cors: true
+    },
   });
 
   await server.register(Vision);
   await server.register(Cookie);
   await server.register(Inert); // to serve local image files
   await server.register(jwt); // to serve java web tokens
-
-
   await server.register([
     Inert,
     Vision,
@@ -69,7 +71,6 @@ async function init() {
       options: swaggerOptions,
     },
   ]);
-
   server.validator(Joi);
 
   server.views({

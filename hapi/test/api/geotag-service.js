@@ -80,6 +80,11 @@ export const geoTagService = {
     return res.data;
   },
 
+  async getPOIWeather(id) {
+    const res = await axios.get(`${this.geoTagUrl}/api/poi/${id}/weather`);
+    return res.data;
+  },
+
   async deletePOI(id) {
     const res = await axios.delete(`${this.geoTagUrl}/api/poi/${id}`);
     return res.data;

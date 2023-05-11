@@ -1,9 +1,9 @@
 import axios from 'axios';
-import { latestPOI, user } from '../stores';
+import { latestPOI,latestCategory, user } from '../stores';
 
 export const geotagService = {
 	baseUrl: 'http://localhost:3000',
-
+    // ############################  Authentication logging in and signing up ######################
 	// log in to the api and save the web token
 	async login(email, password) {
 		try {
@@ -54,7 +54,6 @@ export const geotagService = {
 			return false;
 		}
 	},
-
 // - reload the saved credentials for the JWT
 	reload() {
 		const geotagCredentials = localStorage.geotag;
@@ -69,7 +68,7 @@ export const geotagService = {
 		}
 	},
 
-	// ########################   Category API Commands #############################################
+// ########################   Category API Commands #############################################
 	async getAllCategories() {
 		try {
 			const response = await axios.get(this.baseUrl + '/api/category');
@@ -96,7 +95,19 @@ export const geotagService = {
 		}
 	},
 
-		
+	async addCategory(newCategory) {
+		try {
+			const response = await axios.post(
+				this.baseUrl + '/api/category',
+				newCategory
+			);
+			latestCategory.set(newCategory);
+			return response.status == 201; // 201 is response code for created
+		} catch (error) {
+			return false;
+		}
+	},
+// ########################   Poi API Commands #############################################	
 	async deletePoi(id) {
 		try {
 			const response = await axios.delete(this.baseUrl + '/api/poi/' + id);
@@ -106,6 +117,13 @@ export const geotagService = {
 		}
 	},
 
-
+	async getPoiWeather(id) {
+		try {
+			const response = await axios.get(this.baseUrl + '/api/poi/' + id +'/weather');
+			return response.data;
+		} catch (error) {
+			return [];
+		}
+	},
 
 };

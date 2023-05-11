@@ -1,18 +1,31 @@
-# create-svelte
+# SETU HDip Computer Science  Full Stack Development Assignment 02
 
-Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/master/packages/create-svelte).
+---
 
-## Creating a project
+## GeoTag V2 Readme File
 
-If you're seeing this, you've probably already done this step. Congrats!
+---
 
-```bash
-# create a new project in the current directory
-npm create svelte@latest
+## Originator
 
-# create a new project in my-app
-npm create svelte@latest my-app
-```
+- David Roche
+
+## Student ID  
+
+- 93521243
+
+---
+
+## Full Stack Development Assignment 02
+
+- Development of a svelte front end.
+
+---
+
+## Change Log
+
+- [Change log](/CHANGELOG.md)
+
 
 ## Developing
 

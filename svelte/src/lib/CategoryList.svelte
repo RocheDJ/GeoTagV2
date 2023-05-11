@@ -1,5 +1,6 @@
 <script>
 	import { onMount } from 'svelte';
+	import { latestCategory } from '../stores';
 	import { geotagService } from '../services/geotag-service';
 	/**
 	 * @type {any}
@@ -11,6 +12,12 @@
 
 	onMount(async () => {
 		userCategoriesList = await geotagService.getUserCategories(userID);
+	});
+	// subscribe to auto update the list of categories
+	latestCategory.subscribe(async (category) => {
+		if (category) {
+			userCategoriesList = await geotagService.getUserCategories(userID);
+		}
 	});
 </script>
 
@@ -46,8 +53,13 @@
 </table>
 <div class="box has-text-centered columns m-2">
 	<div class="column">
-		<a href="/dashboard"> 
+		<a href="/category">
 			<i class="fas fa-plus" aria-hidden="true">Add </i>
+		</a>
+	</div>
+	<div class="column">
+		<a href="/maps">
+			<i class="fa fa-map" aria-hidden="true" />
 		</a>
 	</div>
 </div>

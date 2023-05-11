@@ -23,6 +23,7 @@ export const apiRoutes = [
   { method: "DELETE", path: "/api/poi/{id}",config: poiApi.deleteOne},
   { method: "POST", path: "/api/category/{id}/poi",config: poiApi.create},
   { method: "GET", path: "/api/poi/{id}", config: poiApi.findOne },
+  { method: "GET", path: "/api/poi/{id}/weather", config: poiApi.getWeather },
 
 // Authenticate route
   { method: "POST", path: "/api/users/authenticate", config: userApi.authenticate },

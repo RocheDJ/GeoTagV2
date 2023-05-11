@@ -14,7 +14,7 @@
 	</div>
 
 	<div class="column">
-        <a href="https://github.com/RocheDJ/GeoTag" target="_blank">
+        <a href="https://github.com/RocheDJ/GeoTagV2" target="_blank">
             <i class="fa fa-github fa-2x"> Project GIT</i>
         </a>
 		
