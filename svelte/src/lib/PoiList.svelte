@@ -2,33 +2,59 @@
 	// @ts-nocheck
 	import { onMount } from 'svelte';
 	import { geotagService } from '../services/geotag-service';
+	
+	import { latestPOI,selectedPOI } from '../stores';
+	import { Confirm } from 'svelte-confirm';
+	import '../css/confirm.css';
+
+	// list the Poi in a category
 	/**
 	 * @type {any}
 	 */
-	export let poiID;
-	const geotagCredentials = localStorage.geotag;
-	const userData = JSON.parse(geotagCredentials);
+	export let categoryID; // categoryID;
+
 	/**
 	 * @type {any}
 	 */
 	let userPoiList = [];
 
 
-	async function readPoiList(){
-		userPoiList = await geotagService.getPoiList(poiID); // ToDo: change to user specific
-	} 
+	async function readPoiList() {
+		userPoiList = await geotagService.getPoiList(categoryID); // ToDo: change to user specific
+	}
 
 	onMount(async () => {
 		readPoiList();
 	});
 
-
-	async function deletePoi(poiID){
+	async function deletePoi(poiID) {
 		const retValue = await geotagService.deletePoi(poiID);
-		alert("Deleted - " + poiID);
 		readPoiList();
 	}
 
+	function getPOILocal(id){
+		let retValue ;
+		let i=0;
+		for (i in userPoiList) {
+    		if(userPoiList[i]._id === id){
+				retValue = userPoiList[i];
+				return retValue;
+			};
+		}
+	}
+
+	function onChange(event) {
+		const selected = event.currentTarget.value;
+
+		selectedPOI.set(getPOILocal(selected));
+	}
+
+	// subscribe to event to auto-update the list of categories on write
+	latestPOI.subscribe(async (poi) => {
+		if (poi) {
+			readPoiList();
+		}
+	});
 </script>
 
 <table class="table is-fullwidth">
@@ -44,7 +70,7 @@
 		{#each userPoiList as poi}
 			<tr>
 				<td>
-					{poi.name}
+					{poi.name} 
 				</td>
 				<td>
 					{poi.description}
@@ -53,28 +79,35 @@
 					<img src={poi.image} width="50" alt="img" />
 				</td>
 				<td>
-					<a href="/dashboard/poi/weather/?_id={poi._id}"><i class="fa fa-cloud"></i><i class="fa fa-sun-o" aria-hidden="true"></i> </a>	
+					<a href="/dashboard/poi/weather/?_id={poi._id}"
+						><i class="fa fa-cloud" /><i class="fa fa-sun-o" aria-hidden="true" />
+					</a>
+				</td>
+
+				<td>
+					<input type="radio" on:change={onChange} group={1} name="selectedPOI" value={poi._id} />
 				</td>
 				<td>
-					<i class="fas fa-gear" />
-				</td>
-				<td>
-					<!-- svelte-ignore a11y-click-events-have-key-events -->
-					<i class="fas fa-trash" on:click={deletePoi(poi._id)}>{''}</i>
+					<Confirm confirmTitle="Delete" cancelTitle="Cancel" let:confirm={confirmThis}>
+						<!-- svelte-ignore a11y-click-events-have-key-events -->
+						<svg
+							style="width:24px;height:24px"
+							viewBox="0 0 24 24"
+							class="delete-icon"
+							on:click={() => confirmThis(deletePoi, poi._id)}
+						>
+							<path
+								fill="hsl(200, 40%, 20%)"
+								d="M19,4H15.5L14.5,3H9.5L8.5,4H5V6H19M6,19A2,2 0 0,0 8,21H16A2,2 0 0,0 18,19V7H6V19Z"
+							/>
+						</svg>
+						<span slot="title"> Delete this POI ? </span>
+						<span slot="description"> You won't be able to undo! </span>
+					</Confirm>
 				</td>
 			</tr>
 		{/each}
 	</tbody>
-	<div class="box has-text-centered columns m-3">
-		<div class="column">
-			<a href="/dashboard"> 
-				<i class="fas fa-home fa-2x" aria-hidden="true"></i>
-			</a>
-		</div>	
-		<div class="column">
-			<a href="/dashboard"> 
-				<i class="fas fa-plus fa-2x" aria-hidden="true"></i>
-			</a>
-		</div>
-	</div>
 </table>
+
+

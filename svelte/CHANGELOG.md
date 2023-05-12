@@ -2,7 +2,7 @@
 
 ---
 
-## GeoTag V2 (Back End) Changelog
+## GeoTag V2 (Front End) Changelog
 
 ---
 
@@ -24,10 +24,8 @@
 
 ## BaseLine Version 2.0.23131
 
-- Retained storage Implemented using Mongo DB
-- Added Get Weather API Interface 
-- Corrected API errors for Category validation 
 
 ## BaseLine Version 2.0.23132
 
-- Updated to include Update POI API
+- Updated to include edit of POI information.
+- Updated to include image selection.

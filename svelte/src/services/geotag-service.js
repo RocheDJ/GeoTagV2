@@ -1,9 +1,9 @@
 import axios from 'axios';
-import { latestPOI,latestCategory, user } from '../stores';
+import { latestCategory, latestPOI, user } from '../stores';
 
 export const geotagService = {
 	baseUrl: 'http://localhost:3000',
-    // ############################  Authentication logging in and signing up ######################
+	// ############################  Authentication logging in and signing up ######################
 	// log in to the api and save the web token
 	async login(email, password) {
 		try {
@@ -18,7 +18,11 @@ export const geotagService = {
 					token: response.data.token,
 					_id: response.data._id
 				});
-				localStorage.geotag = JSON.stringify({ email: email, token: response.data.token ,_id:response.data._id });
+				localStorage.geotag = JSON.stringify({
+					email: email,
+					token: response.data.token,
+					_id: response.data._id
+				});
 				return true;
 			}
 			return false;
@@ -28,12 +32,12 @@ export const geotagService = {
 		}
 	},
 
-    // log out and destroy the token
+	// log out and destroy the token
 	async logout() {
 		user.set({
 			email: '',
 			token: '',
-			_id : ""
+			_id: ''
 		});
 		axios.defaults.headers.common['Authorization'] = '';
 		localStorage.removeItem('geotag');
@@ -54,7 +58,7 @@ export const geotagService = {
 			return false;
 		}
 	},
-// - reload the saved credentials for the JWT
+	// - reload the saved credentials for the JWT
 	reload() {
 		const geotagCredentials = localStorage.geotag;
 		if (geotagCredentials) {
@@ -62,13 +66,13 @@ export const geotagService = {
 			user.set({
 				email: savedUser.email,
 				token: savedUser.token,
-				_id : savedUser._id
+				_id: savedUser._id
 			});
 			axios.defaults.headers.common['Authorization'] = 'Bearer ' + savedUser.token;
 		}
 	},
 
-// ########################   Category API Commands #############################################
+	// ########################   Category API Commands #############################################
 	async getAllCategories() {
 		try {
 			const response = await axios.get(this.baseUrl + '/api/category');
@@ -88,7 +92,7 @@ export const geotagService = {
 
 	async getPoiList(id) {
 		try {
-			const response = await axios.get(this.baseUrl + '/api/category/' + id +'/poi');
+			const response = await axios.get(this.baseUrl + '/api/category/' + id + '/poi');
 			return response.data;
 		} catch (error) {
 			return [];
@@ -97,17 +101,24 @@ export const geotagService = {
 
 	async addCategory(newCategory) {
 		try {
-			const response = await axios.post(
-				this.baseUrl + '/api/category',
-				newCategory
-			);
+			const response = await axios.post(this.baseUrl + '/api/category', newCategory);
 			latestCategory.set(newCategory);
 			return response.status == 201; // 201 is response code for created
 		} catch (error) {
 			return false;
 		}
 	},
-// ########################   Poi API Commands #############################################	
+
+	async deleteCategory(id) {
+		try {
+			const response = await axios.delete(this.baseUrl + '/api/category/' + id);
+			return response.data;
+		} catch (error) {
+			return false;
+		}
+	},
+
+	// ########################   Poi API Commands #############################################
 	async deletePoi(id) {
 		try {
 			const response = await axios.delete(this.baseUrl + '/api/poi/' + id);
@@ -119,11 +130,30 @@ export const geotagService = {
 
 	async getPoiWeather(id) {
 		try {
-			const response = await axios.get(this.baseUrl + '/api/poi/' + id +'/weather');
+			const response = await axios.get(this.baseUrl + '/api/poi/' + id + '/weather');
 			return response.data;
 		} catch (error) {
 			return [];
 		}
 	},
 
+	async addPoi(newPoi) {
+		try {
+			const response = await axios.post(this.baseUrl + '/api/category/'+ newPoi.categoryID+'/poi',newPoi);
+			latestPOI.set(newPoi);
+			return response.status == 201; // 201 is response code for created
+		} catch (error) {
+			return false;
+		}
+	},
+
+	async updatePoi(amendedPoi) {
+		try {
+			const response = await axios.post(this.baseUrl + '/api/category/poi/'+ amendedPoi._id,amendedPoi);
+			latestPOI.set(amendedPoi);
+			return response.status == 202; // 202 is response code for accecpted
+		} catch (error) {
+			return false;
+		}
+	},
 };

@@ -1,5 +1,6 @@
 import { POI } from "./poi.js";
 import { Category } from "./category.js";
+import Mongoose from "mongoose";
 
 export const poiMongoStore = {
   async getAllPOI() {
@@ -39,13 +40,19 @@ export const poiMongoStore = {
     await POI.deleteMany({});
   },
 
-  async updatePOI(poi, updatedPOI) {
-    poi.name = updatedPOI.name;
-    poi.description = updatedPOI.description;
-    poi.latitude = updatedPOI.latitude;
-    poi.longitude = updatedPOI.longitude;
-    poi.categoryID = updatedPOI.categoryID;
-    poi.imageFileName = updatedPOI.imageFileName;
-    await poi.save();
+  async updatePOI(poiId, updatedPOI) {
+    let idReturn = null
+    try {
+      const filter = { _id: poiId };
+      const update = { updatedPOI };
+       // https://mongoosejs.com/docs/tutorials/findoneandupdate.html
+      const updPOI = await POI.findOneAndUpdate(filter,updatedPOI,{
+        new: true
+      } );
+      idReturn  = updPOI._id;
+    }catch (error) {
+      console.log(`Update POI By ID Error = ${  error.description}` );
+    }
+   return idReturn;
   },
 };

@@ -22,6 +22,7 @@ export const apiRoutes = [
   { method: "DELETE", path: "/api/poi",config: poiApi.deleteAll},
   { method: "DELETE", path: "/api/poi/{id}",config: poiApi.deleteOne},
   { method: "POST", path: "/api/category/{id}/poi",config: poiApi.create},
+  { method: "POST", path: "/api/category/poi/{id}",config: poiApi.update},
   { method: "GET", path: "/api/poi/{id}", config: poiApi.findOne },
   { method: "GET", path: "/api/poi/{id}/weather", config: poiApi.getWeather },
 

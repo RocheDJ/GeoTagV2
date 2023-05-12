@@ -27,7 +27,7 @@
 		} else {
 			message = 'Please Enter Category Information';
 		}
-	}
+	};
 </script>
 
 <form on:submit|preventDefault={addCategory}>

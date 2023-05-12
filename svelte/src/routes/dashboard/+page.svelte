@@ -29,6 +29,7 @@
 		</div>
 	</div>
 </div>
+
 <div class="columns is-vcentered">
 	<div class="column box">
 		<Footer />

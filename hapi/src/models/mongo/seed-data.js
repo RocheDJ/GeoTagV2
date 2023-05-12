@@ -51,7 +51,7 @@ export const seedData = {
       description: "Kiln Field",
       latitude: 52.371033,
       longitude:  -6.692752,
-      image: "http://res.cloudinary.com/dwv4wuj9l/image/upload/v1678877496/j8fuirekhojwosgmpjr0.png",
+      image: "http://res.cloudinary.com/dwv4wuj9l/image/upload/v1679137014/quph4xe5n3krxozhmzrq.jpg",
       categoryID: "->categories.fields",
     },
     field03: {
@@ -59,7 +59,7 @@ export const seedData = {
       description: "Dalton's field",
       latitude: 52.372967,
       longitude:  -6.693630,
-      image: "http://res.cloudinary.com/dwv4wuj9l/image/upload/v1678877496/j8fuirekhojwosgmpjr0.png",
+      image: "http://res.cloudinary.com/dwv4wuj9l/image/upload/v1679136599/zokeyrangv6imyxtbiat.jpg",
       categoryID: "->categories.fields",
     },
     bridge01: {

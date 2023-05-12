@@ -10,7 +10,7 @@
     
     async function signup() {
         console.log(`attempting to sign up email: ${email}`);
-        let success = await donationService.signup(firstName, lastName, email, password);
+        let success = await geotagService.signup(firstName, lastName, email, password);
         if (success) {
             goto("/");
         } else {

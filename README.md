@@ -1,6 +1,6 @@
 # SETU HDip Computer Science  Full Stack Development Assignment 02
 
-![version](https://img.shields.io/badge/version-2.0.23131-blue.svg) ![license](https://img.shields.io/badge/license-MIT-blue.svg)
+![version](https://img.shields.io/badge/version-2.0.23132-blue.svg) ![license](https://img.shields.io/badge/license-MIT-blue.svg)
 
 ![logo](https://wit-hdip-comp-sci-2-2022-full-stack-1.netlify.app/topic-00-overview/unit-assign-x2/talk-assignment-2/assign-2.png)
 
