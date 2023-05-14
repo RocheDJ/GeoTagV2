@@ -34,6 +34,7 @@
 		"hapi-auth-jwt2": "^10.4.0",
 		"jsonwebtoken": "^9.0.0",
 		"leaflet": "^1.9.3",
-		"svelte-confirm": "^0.0.0"
+		"svelte-confirm": "^0.0.0",
+		"svelte-frappe-charts": "^1.10.0"
 	}
 }

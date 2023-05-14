@@ -25,7 +25,12 @@
 ## BaseLine Version 2.0.23131
 
 
-## BaseLine Version 2.0.23132
+## Version 2.0.23132
 
 - Updated to include edit of POI information.
 - Updated to include image selection.
+
+## Version 2.0.23134
+
+- Update to include frappe charts.
+
