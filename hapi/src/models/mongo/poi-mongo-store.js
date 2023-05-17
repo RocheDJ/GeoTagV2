@@ -1,6 +1,6 @@
+import Mongoose from "mongoose";
 import { POI } from "./poi.js";
 import { Category } from "./category.js";
-import Mongoose from "mongoose";
 
 export const poiMongoStore = {
   async getAllPOI() {

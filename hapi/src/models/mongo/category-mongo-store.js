@@ -1,16 +1,15 @@
-import Mongoose  from "mongoose";
+import Mongoose from "mongoose";
 import { Category } from "./category.js";
 import { poiMongoStore } from "./poi-mongo-store.js";
 
 export const categoryMongoStore = {
-  
   async getAllCategories() {
     const categories = await Category.find().lean();
     return categories;
   },
 
   async getCategoryById(id) {
-    if (Mongoose.Types.ObjectId.isValid(id)){   
+    if (Mongoose.Types.ObjectId.isValid(id)) {
       const category = await Category.findOne({ _id: id }).lean();
       if (category) {
         category.poi = await poiMongoStore.getPOIByCategoryId(category._id);
@@ -20,19 +19,23 @@ export const categoryMongoStore = {
     return null;
   },
 
-  async getPOIByCategoryId(id)
-   {
-    if (Mongoose.Types.ObjectId.isValid(id)){  
-        const poi = await poiMongoStore.getPOIByCategoryId(id);
-        return poi;
-      }
+  async getPOIByCategoryId(id) {
+    if (Mongoose.Types.ObjectId.isValid(id)) {
+      const poi = await poiMongoStore.getPOIByCategoryId(id);
+      return poi;
+    }
     return null;
   },
 
   async addCategory(category) {
-    const newCategory = new Category(category);
-    const categoryObj = await newCategory.save();
-    return this.getCategoryById(categoryObj._id);
+    try {
+      const newCategory = new Category(category);
+      const categoryObj = await newCategory.save();
+      return this.getCategoryById(categoryObj._id);
+    } catch (error) {
+      console.log(`Add Category Error = ${error.description}`);
+    }
+    return null;
   },
 
   async getUserCategories(id) {
@@ -42,17 +45,25 @@ export const categoryMongoStore = {
         return category;
       }
     } catch (error) {
-      console.log(`Delete Poi Error = ${  error.description}` );
-    } return null;
+      console.log(`Delete Poi Error = ${error.description}`);
+    }
+    return null;
   },
 
-  async updateCategory(updatedCategory) {
-    const category = await Category.findOne({ _id: updatedCategory._id });
-    category.title = updatedCategory.title;
-    category.img = updatedCategory.img;
-    await category.save();
+  async updateCategory(categoryId,updatedCategory) {
+    let retValue = null
+    try {
+      const filter = { _id: categoryId };
+      const retCategory = await Category.findOneAndUpdate(filter,updatedCategory,{
+        new: true
+      } );
+      const revisedCategory = await Category.findOne({ _id: updatedCategory._id });
+      retValue = revisedCategory;
+    } catch (error) {
+      console.log(`Update Poi Error = ${error.description}`);
+    }
+    return retValue;
   },
-
 
   async deleteCategoryById(id) {
     try {
@@ -61,7 +72,6 @@ export const categoryMongoStore = {
       console.log("bad id");
     }
   },
-
 
   async deleteAllCategories() {
     await Category.deleteMany({});

@@ -1,6 +1,7 @@
 <script>
 	// @ts-nocheck
 	import { geotagService } from '../services/geotag-service';
+	import { selectedCategory } from '../stores';
 	const geotagCredentials = localStorage.geotag;
 	const userData = JSON.parse(geotagCredentials);
 
@@ -28,6 +29,19 @@
 			message = 'Please Enter Category Information';
 		}
 	};
+
+
+	// listen for Poi changes
+	selectedCategory.subscribe(async (categoryID) => {
+		if (categoryID) {
+			const categoryData = await geotagService.getCategory(categoryID);
+			if(categoryData){
+				categoryTitle = categoryData.title;
+				categoryImage = categoryData.img;
+				userID		  = userData._id;	
+			}
+		}
+	});
 </script>
 
 <form on:submit|preventDefault={addCategory}>
@@ -38,10 +52,7 @@
 	<div class="field">
 
 	</div>
-	<div class="field">
-		<label class="label" for="categoryImage">Enter Image File</label>
-		<input bind:value={categoryImage} class="input" id="categoryImage" name="categoryImage" type="string" />
-	</div>
+
 	<div class="field">
 		<div class="control">
 			<button class="button is-link is-light"> Add </button>

@@ -98,6 +98,15 @@ export const geoTagService = {
 
   async clearAuth() {
     axios.defaults.headers.common.Authorization = "";
-  }
+  },
 
+  async uploadImage(imageData){
+    const response = await axios.post(`${this.geoTagUrl}/api/image`, imageData);
+    return response.data;
+  },
+
+  async delateImage(imageURL){
+    const response = await axios.delete(`${this.geoTagUrl}/api/image`, imageURL);
+    return response;
+  },
 };

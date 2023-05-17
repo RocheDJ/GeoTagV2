@@ -1,13 +1,14 @@
-<script>
+<script lang="ts">
 	// @ts-nocheck
 	import { onMount } from 'svelte';
-	import { latestCategory } from '../stores';
+	import { latestCategory,selectedCategory } from '../stores';
 	import { geotagService } from '../services/geotag-service';
-	
+	import { goto } from '$app/navigation';
+
 	//read in the user ID
 	/**
 	 * @type {any}
-	 */ 
+	 */
 	let userCategoriesList = [];
 	const geotagCredentials = localStorage.geotag;
 	const userData = JSON.parse(geotagCredentials);
@@ -18,12 +19,11 @@
 	});
 
 	// delete the category by id
-	async function deleteCategory(categoryID){
+	async function deleteCategory(categoryID) {
 		const retValue = await geotagService.deleteCategory(categoryID);
-		alert("Deleted - " + categoryID);
+		alert('Deleted - ' + categoryID);
 		userCategoriesList = await geotagService.getUserCategories(userID);
-	}
-
+	};
 
 	// subscribe to event to auto-update the list of categories on write
 	latestCategory.subscribe(async (category) => {
@@ -31,39 +31,47 @@
 			userCategoriesList = await geotagService.getUserCategories(userID);
 		}
 	});
+
+	//  
+	function showPlaces(categoryID,categoryTitle){
+		let cID : string = categoryID;
+		let route : string = `/dashboard/poi/?_id=`;
+		let cName : string = categoryTitle;
+		route = route + cID + `-` + cName;
+		goto(route);
+	}
+
+	function onChange(event) {
+		const selected = event.currentTarget.value;
+		selectedCategory.set(selected);
+	}
+
 </script>
 
 <table class="table is-fullwidth">
 	<thead>
+		<th>Select</th>
 		<th>Name</th>
-		<th>Image</th>
 		<th>Open</th>
-		<th>Edit</th>
 		<th>Delete</th>
 	</thead>
 	<tbody>
 		{#each userCategoriesList as category}
 			<tr>
 				<td>
+					<input type="radio" on:change={onChange} group={1} name="selectedCAT" value={category._id} />
+				</td>
+				<td>
 					{category.title}
 				</td>
 				<td>
-					<img src={category.img} width="50" alt="img" />
-				</td>
-				<td>
-					<a href="/dashboard/poi/?_id={category._id}">
-						<i class="fas fa-folder-open" />
-					</a>
+					<!-- svelte-ignore a11y-click-events-have-key-events -->
+						<i class="fas fa-folder is-clickable" on:click={showPlaces(category._id,category.title)}/>
 				</td>
 
 				<td>
-					<a href="/dashboard/poi/?_id={category._id}">
-						<i class="fas fa-gear" />
-					</a>
-				</td>
-				<td>
 					<!-- svelte-ignore a11y-click-events-have-key-events -->
-					<i class="fas fa-trash" on:click={deleteCategory(category._id)}>{''}</i>
+					<i class="fas fa-trash is-clickable" on:click={deleteCategory(category._id)}>{''}</i>
 				</td>
 			</tr>
 		{/each}
@@ -72,12 +80,12 @@
 <div class="box has-text-centered columns m-2">
 	<div class="column">
 		<a href="/category">
-			<i class="fas fa-plus" aria-hidden="true">Add </i>
+			<i class="fas fa-gear" aria-hidden="true" title="Edit" />
 		</a>
 	</div>
 	<div class="column">
 		<a href="/maps">
-			<i class="fa fa-map" aria-hidden="true" />
+			<i class="fa fa-map" aria-hidden="true" title="Show Map" />
 		</a>
 	</div>
 </div>

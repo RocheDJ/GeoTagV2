@@ -71,6 +71,7 @@ export const categoryController = {
       parse: true,
     },
   },
+  
   deletePoi: {
     handler: async function (request, h) {
       const category = await db.categoryStore.getCategoryById(request.params.id);

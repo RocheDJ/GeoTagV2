@@ -11,8 +11,16 @@
 	width: 50px;
 	cursor: pointer;
 }
+
+.delete_ico {
+	display: flex;
+	height: 50px;
+	width: 50px;
+	cursor: pointer;
+}
+
 .avatar {
 	display: flex;
 	height: 200px;
-	width: 200px;
+	width: 350px;
 }

@@ -9,3 +9,4 @@ export const user = writable({
 export const latestCategory = writable(null);
 export const latestPOI = writable(null);
 export const selectedPOI = writable(null);
+export const selectedCategory = writable(null);

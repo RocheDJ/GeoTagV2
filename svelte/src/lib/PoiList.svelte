@@ -1,23 +1,21 @@
 <script>
-	// @ts-nocheck
-	import { onMount } from 'svelte';
-	import { geotagService } from '../services/geotag-service';
-	
-	import { latestPOI,selectedPOI } from '../stores';
-	import { Confirm } from 'svelte-confirm';
-	import '../css/confirm.css';
-
 	// list the Poi in a category
 	/**
 	 * @type {any}
 	 */
 	export let categoryID; // categoryID;
 
+	// @ts-nocheck
+	import { onMount } from 'svelte';
+	import { geotagService } from '../services/geotag-service';
+	import { latestPOI, selectedCategory } from '../stores';
+	import { Confirm } from 'svelte-confirm';
+	import '../css/confirm.css';
+
 	/**
 	 * @type {any}
 	 */
 	let userPoiList = [];
-
 
 	async function readPoiList() {
 		userPoiList = await geotagService.getPoiList(categoryID); // ToDo: change to user specific
@@ -32,21 +30,20 @@
 		readPoiList();
 	}
 
-	function getPOILocal(id){
-		let retValue ;
-		let i=0;
+	function getPOILocal(id) {
+		let retValue;
+		let i = 0;
 		for (i in userPoiList) {
-    		if(userPoiList[i]._id === id){
+			if (userPoiList[i]._id === id) {
 				retValue = userPoiList[i];
 				return retValue;
-			};
+			}
 		}
 	}
 
 	function onChange(event) {
 		const selected = event.currentTarget.value;
-
-		selectedPOI.set(getPOILocal(selected));
+		selectedCategory.set(getPOILocal(selected));
 	}
 
 	// subscribe to event to auto-update the list of categories on write
@@ -59,18 +56,21 @@
 
 <table class="table is-fullwidth">
 	<thead>
+		<th>Select</th>
 		<th>Name</th>
 		<th>Description</th>
 		<th>Image</th>
 		<th>Weather</th>
-		<th>Edit</th>
 		<th>Delete</th>
 	</thead>
 	<tbody>
 		{#each userPoiList as poi}
 			<tr>
 				<td>
-					{poi.name} 
+					<input type="radio" on:change={onChange} group={1} name="selectedPOI" value={poi._id} />
+				</td>
+				<td>
+					{poi.name}
 				</td>
 				<td>
 					{poi.description}
@@ -84,9 +84,6 @@
 					</a>
 				</td>
 
-				<td>
-					<input type="radio" on:change={onChange} group={1} name="selectedPOI" value={poi._id} />
-				</td>
 				<td>
 					<Confirm confirmTitle="Delete" cancelTitle="Cancel" let:confirm={confirmThis}>
 						<!-- svelte-ignore a11y-click-events-have-key-events -->
@@ -109,5 +106,3 @@
 		{/each}
 	</tbody>
 </table>
-
-

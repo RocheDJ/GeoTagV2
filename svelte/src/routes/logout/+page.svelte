@@ -1,3 +1,4 @@
+<!-- src/routes/logout/+page.svelte -->
 <script>
     import { goto } from "$app/navigation";
     import { geotagService } from "../../services/geotag-service";

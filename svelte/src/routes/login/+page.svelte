@@ -1,3 +1,4 @@
+<!-- src/routes/login/+page.svelte -->
 <script>
     import Header from '$lib/Header.svelte';
     import LoginForm from '$lib/LoginForm.svelte';

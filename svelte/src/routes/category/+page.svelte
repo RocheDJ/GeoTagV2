@@ -1,7 +1,8 @@
+<!-- src/routes/category/+page.svelte -->
 <script>
 	import DashboardHeader from '$lib/DashboardHeader.svelte';
 	import CategoryList from '$lib/CategoryList.svelte';
-	import CategoryEdit from '$lib/CategoryEdit.svelte';
+	import CategoryForm from '$lib/CategoryForm.svelte';
 	import Footer from '$lib/Footer.svelte';
 </script>
 
@@ -17,7 +18,7 @@
 <div class="columns is-vcentered">
 	<div class="column box ">
 		<h1 class="title is-4">Add New Category</h1>
-		<CategoryEdit />
+		<CategoryForm />
 	</div>
 </div>
 

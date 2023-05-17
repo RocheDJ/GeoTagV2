@@ -89,7 +89,14 @@ export const geotagService = {
 			return [];
 		}
 	},
-
+	async getCategory(id) {
+		try {
+			const response = await axios.get(this.baseUrl + '/api/category/' + id);
+			return response.data;
+		} catch (error) {
+			return [];
+		}
+	},
 	async getPoiList(id) {
 		try {
 			const response = await axios.get(this.baseUrl + '/api/category/' + id + '/poi');
@@ -139,7 +146,10 @@ export const geotagService = {
 
 	async addPoi(newPoi) {
 		try {
-			const response = await axios.post(this.baseUrl + '/api/category/'+ newPoi.categoryID+'/poi',newPoi);
+			const response = await axios.post(
+				this.baseUrl + '/api/category/' + newPoi.categoryID + '/poi',
+				newPoi
+			);
 			latestPOI.set(newPoi);
 			return response.status == 201; // 201 is response code for created
 		} catch (error) {
@@ -149,11 +159,38 @@ export const geotagService = {
 
 	async updatePoi(amendedPoi) {
 		try {
-			const response = await axios.post(this.baseUrl + '/api/category/poi/'+ amendedPoi._id,amendedPoi);
+			const response = await axios.post(
+				this.baseUrl + '/api/category/poi/' + amendedPoi._id,
+				amendedPoi
+			);
 			latestPOI.set(amendedPoi);
 			return response.status == 202; // 202 is response code for accecpted
 		} catch (error) {
 			return false;
 		}
 	},
+
+	// ########################   Image API Commands #############################################
+
+	async createImage(iData) {
+		try {
+			const response = await axios.post(this.baseUrl + '/api/image', iData, {
+				headers: {
+					'Content-Type': 'application/json'
+				}
+			});
+			return response.data;
+		} catch (error) {
+			return [];
+		}
+	},
+
+	async deleteImage(iURL) {
+		try {
+			const response = await axios.delete(this.baseUrl + '/api/image', iURL);
+			return response.status == 202; // 202 is response code for accecpted
+		} catch (error) {
+			return [];
+		}
+	}
 };

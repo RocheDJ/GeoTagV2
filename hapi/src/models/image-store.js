@@ -32,6 +32,20 @@ export const imageStore = {
         return retURL;
     },
 
+    uploadImageBIN: async function(imageData) {
+        let retURL = defaultImage;
+        try {
+          const dataBuffer = imageData.fileData.split(",")[1];
+          const filePathName = "./public/temp.img" ; // `./public/${ imageData.fileName}`;
+          
+            writeFileSync(filePathName, dataBuffer, "base64");
+            const response = await cloudinary.v2.uploader.upload(filePathName);
+            retURL = response.url;
+        }catch(ex){
+            console.log(`uploadImage Error =${  ex.message}`);
+        }
+        return retURL;
+    },
     deleteImage: async function(img) {
         await cloudinary.v2.uploader.destroy(img, {});
     }

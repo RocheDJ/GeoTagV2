@@ -1,3 +1,4 @@
+<!-- src/routes/maps/+page.svelte -->
 <script>
 	import DashboardHeader from '$lib/DashboardHeader.svelte';
     import CategoryMap from '$lib/CategoryMap.svelte';

@@ -1,3 +1,4 @@
+<!-- src/routes/dashboard/+page.svelte -->
 <script>
 	import DashboardHeader from '$lib/DashboardHeader.svelte';
 	import CategoryList from '$lib/CategoryList.svelte';

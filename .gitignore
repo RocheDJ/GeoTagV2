@@ -133,3 +133,5 @@ dist
 
 
 package-lock.json
+hapi/.env
+hapi/.env
