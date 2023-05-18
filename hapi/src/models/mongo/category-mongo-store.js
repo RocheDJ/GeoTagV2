@@ -40,7 +40,7 @@ export const categoryMongoStore = {
 
   async getUserCategories(id) {
     try {
-      const category = await Category.find({ userid: id }).lean();
+      const category = await Category.find({ userID: id }).lean();
       if (category) {
         return category;
       }

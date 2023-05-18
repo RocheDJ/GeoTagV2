@@ -1,6 +1,6 @@
 <script lang="ts">
-	// @ts-nocheck
-	import { selectedPOI } from '../stores';
+
+	import { latestPOI} from '../stores';
 	import { geotagService } from '../services/geotag-service';
 	import { Confirm } from 'svelte-confirm';
 	import Coordinates from './Coordinates.svelte';
@@ -58,7 +58,15 @@
 				if (poiImage !== defaultImage) {
 					const imageDeleted = await geotagService.deleteImage(poiImage);
 				}
+				// add as avatar
 				poiImage = await geotagService.createImage(newImageData);
+				// add to gallery
+				const galleryImage={
+					img : poiImage,
+					poiID : poi_ID
+				}
+				const gallery = await geotagService.addGalleryImage(galleryImage);
+				
 				newImageData = null;
 			}
 			const poi = {
@@ -84,23 +92,7 @@
 		}
 	}
 
-	// listen for Poi changes
-	selectedPOI.subscribe(async (poi) => {
-		if (poi) {// dont load poi from not select category
-			if (poi.categoryID === cID) {
-				(nameOfPoi = poi.name),
-					(lat = poi.latitude),
-					(lng = poi.longitude),
-					(poiDescription = poi.description),
-					(poiImage = poi.image),
-					(cID = poi.categoryID),
-					(poi_ID = poi._id);
-				avatar = poiImage;
-				message = 'Click Save to commit any changes';
-			}
-		}
-	});
-
+	
 	// when we add a new poi we add default info
 	const onNewPOIClicked = (e) => {
 		nameOfPoi = 'New Poi';
@@ -133,6 +125,23 @@
 		alert('File Delete' + { avatar });
 		avatar = defaultImage;
 	};
+
+	// listen for Poi changes
+	latestPOI.subscribe(async (poi) => {
+		if (poi) {//
+			if (poi.categoryID === cID) {
+				(nameOfPoi = poi.name),
+					(lat = poi.latitude),
+					(lng = poi.longitude),
+					(poiDescription = poi.description),
+					(poiImage = poi.image),
+					(cID = poi.categoryID),
+					(poi_ID = poi._id);
+				avatar = poiImage;
+				message = 'Click Save to commit any changes';
+			}
+		}
+	});
 </script>
 
 <form on:submit|preventDefault={updatePOI}>

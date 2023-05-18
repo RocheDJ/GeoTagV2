@@ -35,6 +35,11 @@ export const seedData = {
       img: "http://res.cloudinary.com/dwv4wuj9l/image/upload/v1678877496/j8fuirekhojwosgmpjr0.png",
       userID: "->users.homer",
     },
+    beaches: {
+      title: "beaches",
+      img: "http://res.cloudinary.com/dwv4wuj9l/image/upload/v1678877496/j8fuirekhojwosgmpjr0.png",
+      userID: "->users.marge",
+    },
   },
   pois: {
     _model: "POI",
@@ -77,6 +82,37 @@ export const seedData = {
       longitude:  -6.815584,
       image: "http://res.cloudinary.com/dwv4wuj9l/image/upload/v1678877496/j8fuirekhojwosgmpjr0.png",
       categoryID: "->categories.bridges",
+    },
+    beach01: {
+      name: "Bannow Strand",
+      description: "Lovely strand Beware the tide",
+      latitude: 52.211633010363705,
+      longitude:   -6.797021244068255,
+      image: "https://res.cloudinary.com/dwv4wuj9l/image/upload/v1679137014/quph4xe5n3krxozhmzrq.jpg",
+      categoryID: "->categories.beaches",
+    },
+    beach02: {
+      name: "Curracloe",
+      description: " Lovely ",
+      latitude: 52.38844073763779,
+      longitude:   -6.3623175512270445,
+      image: "https://res.cloudinary.com/dwv4wuj9l/image/upload/v1679136916/hsxu4h3jyf7rqogj4o5t.jpg",
+      categoryID: "->categories.beaches",
+    },
+  },
+  gallerys:{
+    _model: "Gallery",
+    gallery01:{
+      img: "http://res.cloudinary.com/dwv4wuj9l/image/upload/v1678877496/j8fuirekhojwosgmpjr0.png",
+      poiID: "->pois.beach01" 
+    },
+    gallery02:{
+      img: "https://res.cloudinary.com/dwv4wuj9l/image/upload/v1679136916/hsxu4h3jyf7rqogj4o5t.jpg",
+      poiID: "->pois.beach01" 
+    },
+    gallery03:{
+      img: "https://res.cloudinary.com/dwv4wuj9l/image/upload/v1679137014/quph4xe5n3krxozhmzrq.jpg",
+      poiID: "->pois.beach01" 
     },
   },
 };

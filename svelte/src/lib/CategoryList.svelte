@@ -59,7 +59,7 @@
 		{#each userCategoriesList as category}
 			<tr>
 				<td>
-					<input type="radio" on:change={onChange} group={1} name="selectedCAT" value={category._id} />
+					<input type="radio" on:change={onChange} group={1} name="selectedCAT" value={category._id} checked/>
 				</td>
 				<td>
 					{category.title}

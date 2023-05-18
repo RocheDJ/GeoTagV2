@@ -109,4 +109,23 @@ export const geoTagService = {
     const response = await axios.delete(`${this.geoTagUrl}/api/image`, imageURL);
     return response;
   },
+
+  async addGalleryImage(id,gallery){
+    const response = await axios.post(`${this.geoTagUrl}/api/gallery/{id}`, gallery);
+    return response;
+  },
+
+  async getGallery(id){
+    const response = await axios.get(`${this.geoTagUrl}/api/gallery/{id}`);
+    return response;
+  },
+  async getAllGallery(){
+    const response = await axios.get(`${this.geoTagUrl}/api/gallery`);
+    return response;
+  },
+  async deleteGalleryImage(id){
+    const response = await axios.delete(`${this.geoTagUrl}/api/gallery/{id}`);
+    return response;
+  },
+
 };

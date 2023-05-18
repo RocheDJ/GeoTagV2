@@ -11,12 +11,14 @@ import {poiJsonStore} from "./json/poi-json-store.js";
 import {userMongoStore} from "./mongo/user-mongo-store.js";
 import {categoryMongoStore} from "./mongo/category-mongo-store.js";
 import {poiMongoStore} from "./mongo/poi-mongo-store.js";
+import {galleryMongoStore} from "./mongo/gallery-mongo-store.js"
 import {connectMongo} from "./mongo/connect.js";
 
 export const db = {
     userStore: null,
     categoryStore: null,
     poiStore: null,
+    galleryStore: null,
 
     init(storeType) {
         switch (storeType) {
@@ -29,6 +31,7 @@ export const db = {
                 this.userStore = userMongoStore;
                 this.categoryStore = categoryMongoStore;
                 this.poiStore = poiMongoStore;
+                this.galleryStore = galleryMongoStore;
                 connectMongo();
                 break;
             default :

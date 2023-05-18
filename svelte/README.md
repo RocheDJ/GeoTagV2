@@ -24,7 +24,7 @@
 
 ## Change Log
 
-- [Change log](/CHANGELOG.md)
+- [Change log](CHANGELOG.md)
 
 
 ## Developing

@@ -6,6 +6,8 @@
 	import DashboardHeader from '$lib/DashboardHeader.svelte';
 	import PoiList from '$lib/PoiList.svelte';
 	import PoiForm from '$lib/PoiForm.svelte';
+	import PoiGallery from '$lib/PoiGallery.svelte';
+
 	const url = $page.url;
 	
 	const iData = url.searchParams.get('_id');
@@ -33,6 +35,16 @@
 			<h1 class="title is-4">POI Edit</h1>
 			<PoiForm cID={categoryID} />
 		</div>
-	</div>
-	
+	</div>	
 </div>
+
+
+<div class="box  m-2">
+	<div class="columns is-vcentered ">
+		<div class="column box is-three-thirds">
+			<h1 class="title is-4">POI gallery</h1>
+			<PoiGallery poID={categoryID} />
+		</div>
+	</div>	
+</div>
+

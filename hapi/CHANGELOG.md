@@ -20,6 +20,7 @@
 
 - [Project ReadMe](/readme.md)
 
+- [Server ReadMe](readme.md)
 ---
 
 ## BaseLine Version 2.0.23131

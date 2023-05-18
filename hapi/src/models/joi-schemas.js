@@ -90,7 +90,6 @@ export const JwtAuth = Joi.object()
     .label("JwtAuth");
 
 // ################################## Climate Spec ##############################################
-
 export const climateReadingSpec = Joi.object()
     .keys({
         code: Joi.number().required(),
@@ -101,4 +100,17 @@ export const climateReadingSpec = Joi.object()
     })
     .label("climateReading");
 
+// ################################## Gallery Spec ##############################################
+export const gallerySpec = Joi.object()
+    .keys({
+        img: Joi.string().example("http://res.cloudinary.com/dwv4wuj9l/image/upload/v1678877496/j8fuirekhojwosgmpjr0.png"),
+        poiID: IdSpec,
+    })
+    .label("NewGallery");
 
+export const gallerySpecPlus = gallerySpec.keys({
+    _id: IdSpec,
+    __v: Joi.number(),
+})
+    .label("CategoryPlus");
+export const galleryArraySpec = Joi.array().items(gallerySpecPlus).label("GalleryArray");

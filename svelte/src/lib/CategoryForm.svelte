@@ -5,7 +5,6 @@
 	const geotagCredentials = localStorage.geotag;
 	const userData = JSON.parse(geotagCredentials);
 
-
 	let categoryTitle = '';
     let categoryImage = 'http://res.cloudinary.com/dwv4wuj9l/image/upload/v1678877496/j8fuirekhojwosgmpjr0.png';
 	

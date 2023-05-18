@@ -150,7 +150,10 @@ export const geotagService = {
 				this.baseUrl + '/api/category/' + newPoi.categoryID + '/poi',
 				newPoi
 			);
-			latestPOI.set(newPoi);
+			if (response.data._id){
+				newPoi = response.data;
+				latestPOI.set(newPoi);
+			}
 			return response.status == 201; // 201 is response code for created
 		} catch (error) {
 			return false;
@@ -163,7 +166,10 @@ export const geotagService = {
 				this.baseUrl + '/api/category/poi/' + amendedPoi._id,
 				amendedPoi
 			);
-			latestPOI.set(amendedPoi);
+			if (response.data._id){
+				amendedPoi = response.data;
+				latestPOI.set(amendedPoi);
+			}
 			return response.status == 202; // 202 is response code for accecpted
 		} catch (error) {
 			return false;
@@ -192,5 +198,46 @@ export const geotagService = {
 		} catch (error) {
 			return [];
 		}
-	}
+	},
+
+	async getGallery(id) {
+		try {
+			const response = await axios.get(this.baseUrl + '/api/gallery/' + id);
+			return response.data;
+			
+		} catch (error) {
+			return [];
+		}
+	},
+
+	async getAllGallery() {
+		try {
+			const response = await axios.get(this.baseUrl + '/api/gallery');
+			return response.data;
+			
+		} catch (error) {
+			return [];
+		}
+	},
+
+	async deleteGalleryImage(id) {
+		try {
+			const response = await axios.delete(this.baseUrl + '/api/gallery/'+ id);
+			return response.status == 202; // 202 is response code for accepted	
+		} catch (error) {
+			return [];
+		}
+	},
+
+	async addGalleryImage(galleryImage) {
+		try {
+			const response = await axios.post(
+				this.baseUrl + '/api/gallery/',
+				galleryImage
+			);
+			return response.status == 201; // 201 is response code for created	
+		} catch (error) {
+			return [];
+		}
+	},
 };

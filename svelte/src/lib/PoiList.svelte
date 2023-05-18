@@ -8,7 +8,7 @@
 	// @ts-nocheck
 	import { onMount } from 'svelte';
 	import { geotagService } from '../services/geotag-service';
-	import { latestPOI, selectedCategory } from '../stores';
+	import { latestPOI } from '../stores';
 	import { Confirm } from 'svelte-confirm';
 	import '../css/confirm.css';
 
@@ -41,9 +41,15 @@
 		}
 	}
 
+	function setSelected(poiID) {
+		latestPOI.set(getPOILocal(poiID));
+	}
+
 	function onChange(event) {
-		const selected = event.currentTarget.value;
-		selectedCategory.set(getPOILocal(selected));
+		if (event) {
+			const selected = event.currentTarget.value;
+			setSelected(selected);
+		}
 	}
 
 	// subscribe to event to auto-update the list of categories on write
@@ -67,7 +73,14 @@
 		{#each userPoiList as poi}
 			<tr>
 				<td>
-					<input type="radio" on:change={onChange} group={1} name="selectedPOI" value={poi._id} />
+					<input
+						type="radio"
+						on:change={onChange}
+						group={1}
+						name="selectedPOI"
+						value={poi._id}
+						checked
+					/>
 				</td>
 				<td>
 					{poi.name}

@@ -90,3 +90,15 @@ export const testPOI = [
     "image" : "http://res.cloudinary.com/dwv4wuj9l/image/upload/v1678877496/j8fuirekhojwosgmpjr0.png",
   }
 ];
+
+export const testGallery = [
+  {
+    "img" : "https://res.cloudinary.com/dwv4wuj9l/image/upload/v1678869574/cld-sample-5.jpg",
+  },
+  {
+    "image" : "https://res.cloudinary.com/dwv4wuj9l/image/upload/v1678869573/cld-sample-4.jpg",
+  },
+  {
+    "image" : "https://res.cloudinary.com/dwv4wuj9l/image/upload/v1678869572/cld-sample-2.jpg",
+  }
+];

@@ -2,6 +2,7 @@ import { userApi } from "./api/user-api.js";
 import { categoryApi } from "./api/category-api.js";
 import { poiApi } from "./api/poi-api.js";
 import { imageApi } from "./api/image-api.js";
+import { galleryApi } from "./api/gallery-api.js";
 
 export const apiRoutes = [
   // USERS API Routes 
@@ -32,6 +33,13 @@ export const apiRoutes = [
   { method: "GET", path: "/api/image", config: imageApi.find },
   { method: "POST", path: "/api/image", config: imageApi.create },
   { method: "DELETE", path: "/api/image", config: imageApi.delete },
+
+  // gallery API routes
+  { method: "GET", path: "/api/gallery", config: galleryApi.find },
+  { method: "GET", path: "/api/gallery/{id}", config: galleryApi.findOne },
+  { method: "POST", path: "/api/gallery/", config: galleryApi.create },
+  { method: "DELETE", path: "/api/gallery/{id}", config: galleryApi.deleteOne},
+
 
 // Authenticate route
   { method: "POST", path: "/api/users/authenticate", config: userApi.authenticate },
