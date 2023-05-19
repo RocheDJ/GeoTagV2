@@ -58,7 +58,7 @@ export const categoryMongoStore = {
         new: true
       } );
       const revisedCategory = await Category.findOne({ _id: updatedCategory._id });
-      retValue = revisedCategory;
+      retValue = revisedCategory._doc;
     } catch (error) {
       console.log(`Update Poi Error = ${error.description}`);
     }

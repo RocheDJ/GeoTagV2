@@ -16,10 +16,6 @@
 				<i class="fas fa-map-marked-alt" style="color:rgb(102, 153, 255)" />
 				<div class="is-size-5">&nbsp; Maps</div>
 			</a>
-			<a href="/settings" class="navbar-item">
-				<i class="fa fa-gears" style="color:rgb(0, 153, 125)" />
-				<div class="is-size-5">&nbsp; Settings</div>
-			</a>
 			<hr class="navbar-divider" />
 			<a href="/logout" class="navbar-item">
 				<i class="fas fa-sign-out-alt" style="color:rgb(255, 0 0)" />

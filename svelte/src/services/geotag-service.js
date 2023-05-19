@@ -115,6 +115,15 @@ export const geotagService = {
 			return false;
 		}
 	},
+	async updateCategory(updatedCategory) {
+		try {
+			const response = await axios.post(this.baseUrl + '/api/category/'+ updatedCategory._id, updatedCategory);
+			latestCategory.set(updatedCategory);
+			return response.status == 202; // 202 is response code for accepted
+		} catch (error) {
+			return false;
+		}
+	},
 
 	async deleteCategory(id) {
 		try {

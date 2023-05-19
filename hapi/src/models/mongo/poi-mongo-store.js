@@ -32,7 +32,7 @@ export const poiMongoStore = {
     try {
       await POI.deleteOne({ _id: id });
     } catch (error) {
-      console.log(`Delete Poi By ID Error = ${  error.description}` );
+      console.log(`Delete Poi By ID Error = ${  error.message}` );
     }
   },
 
@@ -49,9 +49,9 @@ export const poiMongoStore = {
       const updPOI = await POI.findOneAndUpdate(filter,updatedPOI,{
         new: true
       } );
-      idReturn  = updPOI._id;
+      idReturn  = updPOI;
     }catch (error) {
-      console.log(`Update POI By ID Error = ${  error.description}` );
+      console.log(`Update POI By ID Error = ${ error.message}` );
     }
    return idReturn;
   },

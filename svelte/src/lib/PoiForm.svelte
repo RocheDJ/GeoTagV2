@@ -1,29 +1,30 @@
 <script lang="ts">
-
-	import { latestPOI} from '../stores';
+	import { latestPOI } from '../stores';
 	import { geotagService } from '../services/geotag-service';
 	import { Confirm } from 'svelte-confirm';
 	import Coordinates from './Coordinates.svelte';
 	import '../css/fileupload.css';
-	export let cID;
+	export let cID: any;
 
 	const defaultImage =
 		'http://res.cloudinary.com/dwv4wuj9l/image/upload/v1678877496/j8fuirekhojwosgmpjr0.png';
 
-	let poi_ID;
+	let poi_ID: any;
 	let nameOfPoi = '';
 	let lat = 52.160858;
 	let lng = -7.15242;
 	let poiDescription = 'Description of Point';
-	let newImageData = null;
+	let newImageData: any = null;
 	let poiImage: string = defaultImage;
 	let message = 'Select POI from list to edit or add new';
-	let avatar, fileinput;
+	let avatar: any, fileinput: any;
 
-	// Add a new POI with default info
-	async function addPOI() {
-		if (nameOfPoi) {
-			const poi = {
+	// add or update the poi
+	async function SavePoi() {
+		// if the id is set we are updating else we are adding new
+		if (!poi_ID) {
+			message = 'Adding POI, Please wait';
+			const newPOI = {
 				name: nameOfPoi,
 				latitude: lat,
 				longitude: lng,
@@ -31,45 +32,30 @@
 				image: defaultImage,
 				categoryID: cID
 			};
-
-			const success = await geotagService.addPoi(poi);
+			const success = await geotagService.addPoi(newPOI);
 			if (!success) {
 				message = 'Update not completed - trouble happen!';
 				return;
 			}
-			message = `Added ${poi.name}`;
-		}
-	}
-
-	// Update and  save an existing POI
-	async function updatePOI() {
-		if (nameOfPoi) {
+			message = `Added ${newPOI.name}`;
+		} else {
 			message = 'Updating Please wait';
-			document.body.style.cursor = 'wait';
-			// if the avatar is the default image and the poi image is not then
-			// delete the poi image
-			if (avatar == defaultImage && poiImage !== defaultImage) {
-				const imageDeleted = await geotagService.deleteImage(poiImage);
-			}
-
-			// if we have new image data we need to delete the old image
+			//update the image
 			if (newImageData) {
-				// delete the existing saved image for that POI
-				if (poiImage !== defaultImage) {
-					const imageDeleted = await geotagService.deleteImage(poiImage);
-				}
 				// add as avatar
 				poiImage = await geotagService.createImage(newImageData);
+
 				// add to gallery
-				const galleryImage={
-					img : poiImage,
-					poiID : poi_ID
-				}
+				const galleryImage = {
+					img: poiImage,
+					poiID: poi_ID
+				};
 				const gallery = await geotagService.addGalleryImage(galleryImage);
-				
+
 				newImageData = null;
 			}
-			const poi = {
+			// update the POI
+			const updatedPOI = {
 				name: nameOfPoi,
 				latitude: lat,
 				longitude: lng,
@@ -78,29 +64,24 @@
 				categoryID: cID,
 				_id: poi_ID
 			};
-			const success = await geotagService.updatePoi(poi);
+			const success = await geotagService.updatePoi(updatedPOI);
 			if (!success) {
 				message = 'Update not completed - trouble happen!';
 				document.body.style.cursor = 'default';
 				return;
 			}
-			message = `Added ${poi.name}`;
-			document.body.style.cursor = 'default';
-		} else {
-			message = 'Please select amount, method and candidate';
-			document.body.style.cursor = 'default';
+			message = `Updated ${updatedPOI.name}`;
 		}
 	}
 
-	
 	// when we add a new poi we add default info
 	const onNewPOIClicked = (e) => {
 		nameOfPoi = 'New Poi';
 		lat = -90.0;
 		lng = -90.0;
 		poiImage = defaultImage;
-		poiDescription = ' --- ';
-		addPOI();
+		poiDescription = ' Please enter a description ';
+		poi_ID = null;
 	};
 
 	// when new file is selected we update the image and form data for submission to the API
@@ -111,7 +92,7 @@
 		reader.readAsDataURL(file);
 		reader.onload = (e) => {
 			avatar = e.target.result;
-			fileData = e.target.result; // as string;
+			fileData = e.target.result;
 			const postData = JSON.stringify({
 				fileData,
 				fileName: file.name
@@ -128,7 +109,8 @@
 
 	// listen for Poi changes
 	latestPOI.subscribe(async (poi) => {
-		if (poi) {//
+		if (poi) {
+			//
 			if (poi.categoryID === cID) {
 				(nameOfPoi = poi.name),
 					(lat = poi.latitude),
@@ -139,12 +121,14 @@
 					(poi_ID = poi._id);
 				avatar = poiImage;
 				message = 'Click Save to commit any changes';
+			}else{
+				message = 'Categories differ';
 			}
 		}
 	});
 </script>
 
-<form on:submit|preventDefault={updatePOI}>
+<form on:submit|preventDefault={SavePoi}>
 	<div class="columns is-vcentered">
 		<div class="column">
 			<p class="subtitle is-6 has-background-black has-text-warning">{message}</p>
@@ -152,7 +136,7 @@
 		<div class="column">
 			<div class="field">
 				<button class="button is-info is-rounded" on:click={(e) => onNewPOIClicked(e)}>
-					Add New
+					Add
 				</button>
 			</div>
 		</div>

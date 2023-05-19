@@ -5,8 +5,8 @@
 	import { onMount } from 'svelte';
 	import DashboardHeader from '$lib/DashboardHeader.svelte';
 	import PoiList from '$lib/PoiList.svelte';
-	import PoiForm from '$lib/PoiForm.svelte';
 	import PoiGallery from '$lib/PoiGallery.svelte';
+	import PoiForm from '$lib/PoiForm.svelte';
 
 	const url = $page.url;
 	
@@ -14,7 +14,6 @@
 	const dataParameters = iData?.split("-");
 	const categoryID : string = dataParameters[0];
 	const categoryTitle : string = dataParameters[1]
-
 
 </script>
 

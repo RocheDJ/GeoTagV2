@@ -34,3 +34,17 @@
 
 - Update to include frappe charts.
 
+## Version 2.0.23138
+
+- Update to in clude gallery
+
+## Version 2.0.23139
+
+- Update for type script on 
+    - CategoryMap
+    - Dashboard/poi/+page.svelte
+    - CategoryList
+
+- Add Link to weather data from map marker click popup.
+
+- Add second map to map page for location from browser.

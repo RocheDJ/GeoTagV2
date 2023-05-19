@@ -1,15 +1,13 @@
 <script lang="ts">
-	// @ts-nocheck
+	
 	import { onMount } from 'svelte';
 	import { latestCategory,selectedCategory } from '../stores';
 	import { geotagService } from '../services/geotag-service';
 	import { goto } from '$app/navigation';
 
 	//read in the user ID
-	/**
-	 * @type {any}
-	 */
-	let userCategoriesList = [];
+	
+	let userCategoriesList: any = [];
 	const geotagCredentials = localStorage.geotag;
 	const userData = JSON.parse(geotagCredentials);
 	let userID = userData._id;
@@ -19,9 +17,8 @@
 	});
 
 	// delete the category by id
-	async function deleteCategory(categoryID) {
+	async function deleteCategory(categoryID:any) {
 		const retValue = await geotagService.deleteCategory(categoryID);
-		alert('Deleted - ' + categoryID);
 		userCategoriesList = await geotagService.getUserCategories(userID);
 	};
 
@@ -33,7 +30,7 @@
 	});
 
 	//  
-	function showPlaces(categoryID,categoryTitle){
+	function showPlaces(categoryID: string,categoryTitle: string){
 		let cID : string = categoryID;
 		let route : string = `/dashboard/poi/?_id=`;
 		let cName : string = categoryTitle;
@@ -41,7 +38,7 @@
 		goto(route);
 	}
 
-	function onChange(event) {
+	function onChange(event : any) {
 		const selected = event.currentTarget.value;
 		selectedCategory.set(selected);
 	}
