@@ -2,7 +2,8 @@ import axios from 'axios';
 import { latestCategory, latestPOI, user } from '../stores';
 
 export const geotagService = {
-	baseUrl: 'http://localhost:3000',
+	// baseUrl: 'http://localhost:3000',
+	baseUrl: 'https://dirt-oxidized-lady.glitch.me',
 	// ############################  Authentication logging in and signing up ######################
 	// log in to the api and save the web token
 	async login(email, password) {
