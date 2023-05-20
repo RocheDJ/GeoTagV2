@@ -2,6 +2,16 @@
 // @ts-nocheck
 // import * as L from "../../node_modules/leaflet"; // had to call npm i --save-dev @types/leaflet to et this to work
 import * as L from 'leaflet';
+import icon from '../../static/marker-icon-g.png';
+import iconShadow from '../../static/marker-shadow.png';
+
+
+// icon netlify work around from https://github.com/Leaflet/Leaflet/issues/4968
+let myIcon = L.icon({
+	iconUrl: icon,
+	shadowUrl: iconShadow
+});
+
 export class LeafletMap {
 	imap = {};
 	control = {};
@@ -26,6 +36,7 @@ export class LeafletMap {
 
 	constructor(id, descriptor, activeLayer = '') {
 		let defaultLayer = this.baseLayers.Terrain;
+
 		if (activeLayer) {
 			defaultLayer = this.baseLayers[activeLayer];
 		}
@@ -71,7 +82,7 @@ export class LeafletMap {
 
 	addMarker(location, popupText = '', layerTitle = 'default') {
 		let group = {};
-		let marker = L.marker([location.lat, location.lng]);
+		let marker = L.marker([location.lat, location.lng],{icon:myIcon});
 		if (popupText) {
 			var popup = L.popup({ autoClose: false, closeOnClick: false });
 			popup.setContent(popupText);
