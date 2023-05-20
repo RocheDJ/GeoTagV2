@@ -1,11 +1,15 @@
 import axios from 'axios';
-import { latestCategory, latestPOI, user } from '../stores';
+import { latestCategory, latestPOI, user,selectedGallery } from '../stores';
 
 export const geotagService = {
-	// baseUrl: 'http://localhost:3000',
-	baseUrl: 'https://dirt-oxidized-lady.glitch.me',
+	//baseUrl: 'http://localhost:3000',
+	 baseUrl: 'https://dirt-oxidized-lady.glitch.me',
 	// ############################  Authentication logging in and signing up ######################
 	// log in to the api and save the web token
+	/**
+	 * @param {string} email
+	 * @param {string} password
+	 */
 	async login(email, password) {
 		try {
 			const response = await axios.post(`${this.baseUrl}/api/users/authenticate`, {
@@ -45,6 +49,12 @@ export const geotagService = {
 	},
 
 	// sign up for the service
+	/**
+	 * @param {string} firstName
+	 * @param {string} lastName
+	 * @param {string} email
+	 * @param {string} password
+	 */
 	async signup(firstName, lastName, email, password) {
 		try {
 			const userDetails = {
@@ -233,6 +243,7 @@ export const geotagService = {
 	async deleteGalleryImage(id) {
 		try {
 			const response = await axios.delete(this.baseUrl + '/api/gallery/'+ id);
+			selectedGallery.set(id);
 			return response.status == 202; // 202 is response code for accepted	
 		} catch (error) {
 			return [];
@@ -245,6 +256,7 @@ export const geotagService = {
 				this.baseUrl + '/api/gallery/',
 				galleryImage
 			);
+			selectedGallery.set(galleryImage.poiID);
 			return response.status == 201; // 201 is response code for created	
 		} catch (error) {
 			return [];

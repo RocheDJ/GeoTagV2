@@ -9,6 +9,7 @@ export const user = writable({
 export const latestCategory = writable(null);
 export const latestPOI = writable(null);
 export const selectedCategory = writable(null);
+export const selectedGallery = writable(null);
 export const geoLocationPoint = writable({
             lat:-1,
             lng:-1,

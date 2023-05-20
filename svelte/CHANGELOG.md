@@ -36,7 +36,7 @@
 
 ## Version 2.0.23138
 
-- Update to in clude gallery
+- Update to include gallery
 
 ## Version 2.0.23139
 
@@ -48,3 +48,7 @@
 - Add Link to weather data from map marker click popup.
 
 - Add second map to map page for location from browser.
+
+## Version 2.0.23140
+
+- changed mixed http/https to https in app.html

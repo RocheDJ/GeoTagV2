@@ -1,6 +1,6 @@
 {
   "name": "Geo-Tag",
-  "version": "2.0.23131",
+  "version": "2.0.23140",
   "description": "Assignment 2 full Stack Development HDip in Computing, WIT",
   "main": "src/server.js",
   "type": "module",

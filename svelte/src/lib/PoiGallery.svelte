@@ -7,7 +7,7 @@
 	// @ts-nocheck
 	import { onMount } from 'svelte';
 	import { geotagService } from '../services/geotag-service';
-	import { latestPOI} from '../stores';
+	import { latestPOI,selectedGallery} from '../stores';
 	
 	import { Confirm } from 'svelte-confirm';
 	import '../css/confirm.css';
@@ -42,7 +42,12 @@
 			readPoiGallery(poi._id);
 		}
 	});
-	
+
+	selectedGallery.subscribe(async (poi) => {
+		if (poi) {
+			readPoiGallery(poi);
+		}
+	});
 </script>
 
 <table class="table is-fullwidth">
@@ -54,7 +59,9 @@
 		{#each poiGallery as image}
 			<tr>
 				<td>
+					<a href="{image.img}" target="_blank"> 
 					<img src={image.img} width="100" alt="img" />
+					</a>
 				</td>
 <td>
 					<Confirm confirmTitle="Delete" cancelTitle="Cancel" let:confirm={confirmThis}>

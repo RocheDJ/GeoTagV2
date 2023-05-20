@@ -75,7 +75,7 @@
 	}
 
 	// when we add a new poi we add default info
-	const onNewPOIClicked = (e) => {
+	const onNewPOIClicked = (e:any) => {
 		nameOfPoi = 'New Poi';
 		lat = -90.0;
 		lng = -90.0;
@@ -85,12 +85,12 @@
 	};
 
 	// when new file is selected we update the image and form data for submission to the API
-	const onFileSelected = (e) => {
+	const onFileSelected = (e:any) => {
 		let file = e.target.files[0];
 		let reader = new FileReader();
 		let fileData; // : string | undefined;
 		reader.readAsDataURL(file);
-		reader.onload = (e) => {
+		reader.onload = (e:any) => {
 			avatar = e.target.result;
 			fileData = e.target.result;
 			const postData = JSON.stringify({
@@ -103,12 +103,11 @@
 
 	// set the image to default and delete the old one
 	const onFileDelete = () => {
-		alert('File Delete' + { avatar });
 		avatar = defaultImage;
 	};
 
 	// listen for Poi changes
-	latestPOI.subscribe(async (poi) => {
+	latestPOI.subscribe(async (poi:any) => {
 		if (poi) {
 			//
 			if (poi.categoryID === cID) {
@@ -143,7 +142,7 @@
 		<div class="column">
 			<div class="field">
 				<div class="control">
-					<button class="button is-danger is-rounded">Save</button>
+					<button class="button is-danger is-rounded" disabled={!nameOfPoi}>Save</button>
 				</div>
 			</div>
 		</div>
@@ -152,7 +151,7 @@
 		<div class="column">
 			<div class="field">
 				<label class="label" for="Poi Name">POI Name</label>
-				<input bind:value={nameOfPoi} class="input" id="nameOfPoi" name="nameOfPoi" type="string" />
+				<input bind:value={nameOfPoi} class="input" id="nameOfPoi" name="nameOfPoi" type="string" required/>
 			</div>
 		</div>
 		<div class="column">
@@ -164,7 +163,7 @@
 					id="poiDescription"
 					name="poiDescription"
 					type="string"
-				/>
+					required/>
 			</div>
 		</div>
 	</div>
@@ -172,6 +171,7 @@
 	<div class="columns is-hcentered">
 		<div class="column is-two-thirds">
 			<div>
+				<!-- svelte-ignore a11y-label-has-associated-control -->
 				<label class="label">Avatar</label>
 				{#if avatar}
 					<img class="avatar" src={avatar} alt="d" />
@@ -193,7 +193,7 @@
 					<div class="column">
 						<i
 							class="fa fa-trash-o is-clickable fa-3x"
-							title="Delete Image"
+							title="Delete Image/Set Default"
 							aria-hidden="true"
 							on:click={() => {
 								onFileDelete();

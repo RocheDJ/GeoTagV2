@@ -9,9 +9,9 @@
 		'http://res.cloudinary.com/dwv4wuj9l/image/upload/v1678877496/j8fuirekhojwosgmpjr0.png';
 
 	let message = 'Add Category';
-	let cat_ID :any;
+	let cat_ID: any;
 	// when we add a new poi we add default info
-	const onNewCatClicked = (e) => {
+	const onNewCatClicked = (e:any) => {
 		categoryTitle = 'New Category';
 		cat_ID = null;
 	};
@@ -39,7 +39,7 @@
 					title: categoryTitle,
 					img: categoryImage,
 					userID: userData._id,
-					_id : cat_ID
+					_id: cat_ID
 				};
 				const success = await geotagService.updateCategory(updatedCategory);
 				if (!success) {
@@ -94,6 +94,9 @@
 			id="categoryTitle"
 			name="categoryTitle"
 			type="string"
+			minlength="4" 
+			maxlength="80"
+			required
 		/>
 	</div>
 </form>

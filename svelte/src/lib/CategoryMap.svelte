@@ -31,23 +31,25 @@
 
 		userCategories.forEach(async (category: any) => {
 			// add the layer
+			if (map) {
+				map.addLayerGroup(category.title);
+				// add the poi
+				userPoi = await geotagService.getPoiList(category._id);
+				// for each point add map location
 
-			map.addLayerGroup(category.title);
-			// add the poi
-			userPoi = await geotagService.getPoiList(category._id);
-			// for each point add map location
-
-			userPoi.forEach((poi:any) => {
-				addPoiMarker(map, poi, category.title);
-			});
+				userPoi.forEach((poi: any) => {
+					addPoiMarker(map, poi, category.title);
+				});
+			}
 		});
 		map.showLayerControl();
 	});
 
 	function addPoiMarker(map: LeafletMap | null, in_Poi: any, in_Category: any) {
 		var popupString = `<a href='/dashboard/poi/weather/?_id=${in_Poi._id}'>${in_Poi.name}<br><small>Click for Weather</small></a>`;
-		// var popupString = `${in_Poi.name}`;
-		map.addMarker({ lat: in_Poi.latitude, lng: in_Poi.longitude }, popupString, in_Category);
+		if (map) {
+			map.addMarker({ lat: in_Poi.latitude, lng: in_Poi.longitude }, popupString, in_Category);
+		}
 	}
 	// toDo : add subscription for Live update
 </script>

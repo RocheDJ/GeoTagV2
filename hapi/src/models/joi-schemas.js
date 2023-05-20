@@ -11,13 +11,13 @@ export const UserTypeSpec = Joi.alternatives().try(Joi.string(), schUserType).de
 export const UserCredentialsSpec = Joi.object()
     .keys({
         email: Joi.string().email().example("homer@simpson.com").required(),
-        password: Joi.string().example("secret").required(),
+        password: Joi.string().example("secret").required().min(5),
     })
     .label("UserCredentials");
 
 export const UserSpec = UserCredentialsSpec.keys({
-    firstName: Joi.string().example("Homer").required(),
-    lastName: Joi.string().example("Simpson").required(),
+    firstName: Joi.string().example("Homer").required().regex(/^[A-Z][a-z]{2,}$/),
+    lastName: Joi.string().example("Simpson").required().regex(/^[A-Z][a-z]{2,}$/),
     userType: UserTypeSpec,
 }).label("UserDetails");
 
@@ -32,10 +32,10 @@ export const UserArray = Joi.array().items(UserSpecPlus).label("UserArray");
 // ################ Place of interest Spec #############################
 export const PoiSpec = Joi.object()
     .keys({
-        name: Joi.string().example("Somewhere beach").required(),
-        description: Joi.string().example("Description of Somewhere beach").optional(),
-        latitude: Joi.number().required(),
-        longitude: Joi.number().required(),
+        name: Joi.string().example("Somewhere beach").required().regex(/^[A-Za-z0-9 -]*$/), // accept letters and numbers dash and space
+        description: Joi.string().example("Description of Somewhere beach").optional().regex(/^[A-Za-z0-9 -]*$/),
+        latitude: Joi.number().required().max(360).min(-360),
+        longitude: Joi.number().required().max(360).min(-360),
         image: Joi.any().optional(),
         categoryID: IdSpec,
     })
@@ -52,14 +52,14 @@ export const PoiArraySpec = Joi.array().items(PoiSpecPlus).label("PoiArray");
 
 export const simpleCategorySpec = Joi.object()
     .keys({
-        title: Joi.string().required().example("Beaches"),
+        title: Joi.string().required().example("Beaches").regex(/^[A-Za-z0-9 -]*$/),
         img: Joi.string().example("http://res.cloudinary.com/dwv4wuj9l/image/upload/v1678877496/j8fuirekhojwosgmpjr0.png"),
         userID: IdSpec,
     })
     .label("NewCategory");
 export const CategorySpec = Joi.object()
     .keys({
-        title: Joi.string().required().example("Beaches"),
+        title: Joi.string().required().example("Beaches").regex(/^[A-Za-z0-9 -]*$/),
         img: Joi.string().example("http://res.cloudinary.com/dwv4wuj9l/image/upload/v1678877496/j8fuirekhojwosgmpjr0.png"),
         poi: PoiArraySpec,
         userID: IdSpec,
